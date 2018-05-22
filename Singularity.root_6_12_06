@@ -17,7 +17,9 @@ Container for MC studies
   yum-config-manager --enable rhel-server-rhscl-7-rpms
   yum install rh-git29 devtoolset-7 -y
 
+  set +e
   source scl_source enable rh-git29 devtoolset-7
+  set -e
   echo 'source scl_source enable rh-git29 devtoolset-7' >>$SINGULARITY_ENVIRONMENT
 
   echo "Setting up install directories"

@@ -2,7 +2,7 @@ Bootstrap: docker
 From: cern/cc7-base
 
 %help
-Container for MC studies
+Base Container for HEP studies, cern centos 7 + dev tools + recent root build
 
 %post
   DIR_BASE="/opt/mcGen"

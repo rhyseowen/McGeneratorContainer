@@ -1,0 +1,45 @@
+Bootstrap: docker
+From: cern/cc7-base
+
+%help
+Container for MC studies
+
+%post
+  DIR_BASE="/opt/mcGen"
+  DIR_SRC="${DIR_BASE}/src"
+  DIR_INSTALL="${DIR_BASE}/install"
+  DIR_TMP="${DIR_BASE}/tmp"
+
+  export ROOT_VERSION="6.12.06"
+  echo 'export ROOT_VERSION="6.12.06"' >> $SINGULARITY_ENVIRONMENT
+
+  yum install -y gvim vim wget
+  yum-config-manager --enable rhel-server-rhscl-7-rpms
+  yum install rh-git29 devtoolset-7 -y
+
+  source scl_source enable rh-git29 devtoolset-7
+  echo 'source scl_source enable rh-git29 devtoolset-7' >>$SINGULARITY_ENVIRONMENT
+
+  echo "Setting up install directories"
+  mkdir ${DIR_BASE}
+  cd ${DIR_BASE}
+  mkdir -p $DIR_SRC $DIR_INSTALL $DIR_TMP
+
+  echo "Setup Root ${ROOT_VERSION}"
+  yum-builddep root -y
+  cd ${DIR_TMP}
+  wget https://root.cern.ch/download/root_v${ROOT_VERSION}.source.tar.gz
+  cd ${DIR_SRC}
+  tar -xzf ${DIR_TMP}/root_v${ROOT_VERSION}.source.tar.gz
+  cd ${DIR_INSTALL}
+  mkdir root_v${ROOT_VERSION}
+  cd root_v${ROOT_VERSION}
+  cmake3 ${DIR_SRC}/src/root-${ROOT_VERSION}
+  make 
+  source ${DIR_INSTALL}/root_v${ROOT_VERSION}/bin/thisroot.sh
+  echo 'source ${DIR_INSTALL}/root_v${ROOT_VERSION}/bin/thisroot.sh' >> $SINGULARITY_ENVIRONMENT
+  
+
+
+%environment
+  export IMAGE="S:cc7_MC"

@@ -36,7 +36,7 @@ Base Container for HEP studies, cern centos 7 + dev tools + recent root build
   cd ${DIR_INSTALL}
   mkdir root_v${ROOT_VERSION}
   cd root_v${ROOT_VERSION}
-  cmake3 ${DIR_SRC}/src/root-${ROOT_VERSION}
+  cmake3 ${DIR_SRC}/root-${ROOT_VERSION}
   make 
   source ${DIR_INSTALL}/root_v${ROOT_VERSION}/bin/thisroot.sh
   echo 'source ${DIR_INSTALL}/root_v${ROOT_VERSION}/bin/thisroot.sh' >> $SINGULARITY_ENVIRONMENT

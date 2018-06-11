@@ -23,7 +23,7 @@ Base Container for HEP studies, cern centos 7 + dev tools + recent root build
   echo 'source scl_source enable rh-git29 devtoolset-7' >>$SINGULARITY_ENVIRONMENT
 
   echo "Setting up install directories"
-  mkdir ${DIR_BASE}
+  mkdir -p ${DIR_BASE}
   cd ${DIR_BASE}
   mkdir -p $DIR_SRC $DIR_INSTALL $DIR_TMP
 
